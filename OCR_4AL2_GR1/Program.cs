@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace OCR_4AL2_GR1
 {
@@ -7,11 +7,10 @@ namespace OCR_4AL2_GR1
     {
         static void Main(string[] args)
         {
-            IEnumerable<Entry> entries = new DataParser(FileReader.GetContent("path")).Parse();
-            foreach (Entry entry in entries)
-            {
-                Console.WriteLine(entry);
-            }
+            new DataParser(FileReader.GetContent("path"))
+                .Parse()
+                .ToList()
+                .ForEach(Console.WriteLine);
         }
     }
 }
