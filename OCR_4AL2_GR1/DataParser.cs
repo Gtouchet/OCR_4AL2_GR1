@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 
 namespace OCR_4AL2_GR1
 {
     public class DataParser
     {
-        private readonly IEnumerable<string> Data;
+        private readonly string[] Data;
 
-        public DataParser(IEnumerable<string> data)
+        public DataParser(string[] data)
         {
             this.Data = data;
         }
@@ -17,17 +16,18 @@ namespace OCR_4AL2_GR1
         {
             string[] lines = new string[4];
 
-            for (int i = 0; i < this.Data.Count(); i += 4)
+            for (int i = 0; i < this.Data.Length; i += 4)
             {
-                if (this.Data.Count() - i < 4)
+                if (this.Data.Length - i < 4)
                 {
                     // TODO: exception non bloquante
+                    yield break;
                 }
 
-                lines[0] = this.Data.ElementAt(i);
-                lines[1] = this.Data.ElementAt(i + 1);
-                lines[2] = this.Data.ElementAt(i + 2);
-                lines[3] = this.Data.ElementAt(i + 3);
+                lines[0] = this.Data[i];
+                lines[1] = this.Data[i + 1];
+                lines[2] = this.Data[i + 2];
+                lines[3] = this.Data[i + 3];
 
                 yield return new Entry(lines);
             }

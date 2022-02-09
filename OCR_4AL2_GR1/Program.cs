@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace OCR_4AL2_GR1
@@ -7,7 +8,9 @@ namespace OCR_4AL2_GR1
     {
         static void Main(string[] args)
         {
-            new DataParser(FileReader.GetContent("path"))
+            string filePath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent + OcrCodex.CODES_FILENAME;
+
+            new DataParser(File.ReadAllLines(filePath))
                 .Parse()
                 .ToList()
                 .ForEach(Console.WriteLine);
