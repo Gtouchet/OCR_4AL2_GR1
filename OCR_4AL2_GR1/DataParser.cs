@@ -16,9 +16,9 @@ namespace OCR_4AL2_GR1
         {
             string[] lines = new string[4];
 
-            for (int i = 0; i < this.Data.Length; i += 4)
+            for (int i = 0; i < this.Data.Length; i += OcrCodex.CODE_LINE_COUNT)
             {
-                if (this.Data.Length - i < 4)
+                if (this.Data.Length - i < OcrCodex.CODE_LINE_COUNT)
                 {
                     // TODO: exception non bloquante
                     yield break;

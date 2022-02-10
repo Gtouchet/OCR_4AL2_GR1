@@ -14,17 +14,17 @@ namespace OCR_4AL2_GR1
         {
             string decryptedCode = "";
 
-            for (int i = 0; i < code[0].Length; i += OcrCodex.COLUMN_PER_NUMBER)
+            for (int i = 0; i < OcrCodex.CODE_COLUMN_COUNT; i += OcrCodex.COLUMN_PER_NUMBER)
             {
-                string decryptedValue = "";
-                for (int line = 0; line < OcrCodex.ENTRY_LINE_COUNT; line += 1)
+                string decryptedNumber = "";
+                for (int line = 0; line < OcrCodex.CODE_LINE_COUNT; line += 1)
                 {
                     for (int column = i; column < i + OcrCodex.COLUMN_PER_NUMBER; column += 1)
                     {
-                        decryptedValue += code[line][column];
+                        decryptedNumber += code[line][column];
                     }
                 }
-                decryptedCode += OcrCodex.CODEX.ContainsKey(decryptedValue) ? OcrCodex.CODEX[decryptedValue] : "?";
+                decryptedCode += OcrCodex.CODEX.ContainsKey(decryptedNumber) ? OcrCodex.CODEX[decryptedNumber] : "?";
             }
 
             return decryptedCode;

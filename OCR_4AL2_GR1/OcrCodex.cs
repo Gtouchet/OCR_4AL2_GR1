@@ -6,10 +6,10 @@ namespace OCR_4AL2_GR1
     {
         public static readonly string CODES_FILENAME = "/OcrCodes.txt";
 
-        public static readonly int ENTRY_LINE_COUNT = 4;
-        public static readonly int ENTRY_COLUMN_COUNT = 27;
-        public static readonly int TOTAL_NUMBER_IN_CODE = 9;
-        public static readonly int COLUMN_PER_NUMBER = ENTRY_COLUMN_COUNT / TOTAL_NUMBER_IN_CODE;
+        public static readonly int CODE_LINE_COUNT = 4;
+        public static readonly int CODE_COLUMN_COUNT = 27;
+        public static readonly int NUMBER_COUNT_IN_CODE = 9;
+        public static readonly int COLUMN_PER_NUMBER = CODE_COLUMN_COUNT / NUMBER_COUNT_IN_CODE;
 
         private static readonly string ZERO =
             " _ " +
