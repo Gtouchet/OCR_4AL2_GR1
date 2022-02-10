@@ -16,7 +16,7 @@ namespace OCR_4AL2_GR1
 
             for (int i = 0; i < code.Length; i += 1)
             {
-                if (code[i] == '?')
+                if (code[i] == OcrCodex.UNKNOWN_NUMBER_KEY[0])
                 {
                     return false;
                 }
