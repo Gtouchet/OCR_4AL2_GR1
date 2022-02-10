@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.IO;
 using System.Linq;
 
@@ -8,9 +9,14 @@ namespace OCR_4AL2_GR1
     {
         static void Main(string[] args)
         {
-            string filePath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent + OcrCodex.CODES_FILENAME;
+            OcrConfiguration ocrConfig = JsonAccessor
+                .GetConfiguration()
+                .GetSection("OcrConfiguration")
+                .Get<OcrConfiguration>();
 
-            new DataParser(File.ReadAllLines(filePath))
+            string filePath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent + ocrConfig.FileName;
+
+            new DataParser(ocrConfig, File.ReadAllLines(filePath))
                 .Parse()
                 .ToList()
                 .ForEach(Console.WriteLine);
