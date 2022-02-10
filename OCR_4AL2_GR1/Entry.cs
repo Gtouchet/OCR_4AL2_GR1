@@ -4,12 +4,12 @@ namespace OCR_4AL2_GR1
     public class Entry
     {
         private readonly string DecryptedCode;
-        private readonly bool IsChecksumValid;
+        private readonly Checksum Checksum;
 
         public Entry(string[] code)
         {
             this.DecryptedCode = this.Decrypt(code);
-            this.IsChecksumValid = this.ValidateChecksum(this.DecryptedCode);
+            this.Checksum = new Checksum(this.DecryptedCode);
         }
 
         private string Decrypt(string[] code)
@@ -26,20 +26,16 @@ namespace OCR_4AL2_GR1
                         decryptedNumber += code[line][column];
                     }
                 }
-                decryptedCode += OcrCodex.CODEX.ContainsKey(decryptedNumber) ? OcrCodex.CODEX[decryptedNumber] : "?";
+                decryptedCode += OcrCodex.CODEX.ContainsKey(decryptedNumber) ?
+                    OcrCodex.CODEX[decryptedNumber] : OcrCodex.UNKNOWN_NUMBER_KEY;
             }
 
             return decryptedCode;
         }
 
-        private bool ValidateChecksum(string decryptedCode)
-        {
-            return true;
-        }
-
         public override string ToString()
         {
-            return $"Code: {this.DecryptedCode} - Checksum: {(this.IsChecksumValid ? "valid" : "invalid")}";
+            return $"Code: {this.DecryptedCode} - Checksum: {(this.Checksum.IsValid ? "valid" : "invalid")}";
         }
     }
 }
