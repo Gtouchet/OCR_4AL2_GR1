@@ -4,10 +4,12 @@ namespace OCR_4AL2_GR1
     public class Entry
     {
         private readonly string DecryptedCode;
+        private readonly bool IsChecksumValid;
 
         public Entry(string[] code)
         {
             this.DecryptedCode = this.Decrypt(code);
+            this.IsChecksumValid = this.ValidateChecksum(this.DecryptedCode);
         }
 
         private string Decrypt(string[] code)
@@ -30,9 +32,14 @@ namespace OCR_4AL2_GR1
             return decryptedCode;
         }
 
+        private bool ValidateChecksum(string decryptedCode)
+        {
+            return true;
+        }
+
         public override string ToString()
         {
-            return this.DecryptedCode;
+            return $"Code: {this.DecryptedCode} - Checksum: {(this.IsChecksumValid ? "valid" : "invalid")}";
         }
     }
 }
