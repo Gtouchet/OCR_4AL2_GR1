@@ -62,18 +62,18 @@ namespace OCR_4AL2_GR1
             " _|" + 
             "   ";
 
-        public static readonly Dictionary<string, string> CODEX = new Dictionary<string, string>
+        public static readonly Dictionary<string, int> CODEX = new Dictionary<string, int>
         {
-            { ZERO, "0" },
-            { ONE, "1" },
-            { TWO, "2" },
-            { THREE, "3" },
-            { FOUR, "4" },
-            { FIVE, "5" },
-            { SIX, "6" },
-            { SEVEN, "7" },
-            { HEIGHT, "8" },
-            { NINE, "9" },
+            { ZERO, 0 },
+            { ONE, 1 },
+            { TWO, 2 },
+            { THREE, 3 },
+            { FOUR, 4 },
+            { FIVE, 5 },
+            { SIX, 6 },
+            { SEVEN, 7 },
+            { HEIGHT, 8 },
+            { NINE, 9 },
         };
     }
 }
