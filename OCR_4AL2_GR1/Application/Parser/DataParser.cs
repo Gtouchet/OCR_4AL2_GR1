@@ -43,7 +43,7 @@ namespace OCR_4AL2_GR1.Application.Parser
             return this;
         }
 
-        public List<Entry> ToList()
+        public IEnumerable<Entry> ToList()
         {
             return this.entriesList;
         }

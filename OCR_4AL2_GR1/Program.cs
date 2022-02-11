@@ -14,7 +14,6 @@ namespace OCR_4AL2_GR1
         static void Main(string[] args)
         {
             // Input from CLI
-            bool writeInSingleFile = true;
             string inputFilePath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent + "/OcrSample.ocr";
 
             string inputFileName = Path.GetFileNameWithoutExtension(inputFilePath);
@@ -25,19 +24,14 @@ namespace OCR_4AL2_GR1
                     .Parse(File.ReadAllLines(inputFilePath))
                     .ToList();
 
-                Dictionary<string, List<Entry>> entriesDict = DataParser
+                IDictionary<string, List<Entry>> entriesDict = DataParser
                     .Of(new Ocr4x3Number())
                     .Parse(File.ReadAllLines(inputFilePath))
                     .ToDictionary();
 
-                if (writeInSingleFile)
-                {
-                    FileWriter.WriteEntriesInSingleFile(inputFileName, entriesList);
-                }
-                else
-                {
-                    FileWriter.WriteSortedEntriesInFiles(inputFileName, entriesDict);
-                }
+                FileWriter.WriteEntriesInSingleFile(inputFileName, entriesList);
+                FileWriter.WriteEntriesSortedInFiles(inputFileName, entriesDict);
+
             } catch (UnreadableEntryException e) {
                 Console.WriteLine(e.Message);
             }
