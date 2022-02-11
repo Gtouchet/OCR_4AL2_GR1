@@ -1,5 +1,8 @@
-﻿using OCR_4AL2_GR1.OcrConfigurations;
+﻿using OCR_4AL2_GR1.Application;
+using OCR_4AL2_GR1.Application.Exceptions;
+using OCR_4AL2_GR1.OcrConfigurations;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -9,16 +12,14 @@ namespace OCR_4AL2_GR1
     {
         static void Main(string[] args)
         {
-            //TODO horrible
-            string filename = "/OcrCodes.txt";
-            string filePath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent + filename;
+            string filePath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent + "/OcrSample.ocr";
+            string fileName = Path.GetFileNameWithoutExtension(filePath);
 
             try
             {
-                new DataParser(new Ocr4x3Number(), File.ReadAllLines(filePath))
-                    .Parse()
-                    .ToList()
-                    .ForEach(Console.WriteLine);
+                List<Entry> entries = new DataParser(new Ocr4x3Number(), File.ReadAllLines(filePath)).Parse().ToList();
+
+                FileWriter.Write(fileName, entries);
             }
             catch (UnreadableEntryException e)
             {

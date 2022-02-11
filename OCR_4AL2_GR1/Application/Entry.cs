@@ -5,6 +5,8 @@ namespace OCR_4AL2_GR1.Application
     public class Entry
     {
         private const char UNREADABLE_ELEMENT = '?';
+        private const string INVALID_CHECKSUM_KEY = " ERR";
+        private const string UNREADABLE_ELEMENT_KEY = " ILL";
 
         private readonly IOcrConfiguration configuration;
         private readonly string decryptedEntry;
@@ -19,11 +21,11 @@ namespace OCR_4AL2_GR1.Application
 
         private string DecryptEntry(string[] cryptedEntry)
         {
-            string decryptedEntry = "";
+            string decryptedEntry = string.Empty;
 
             for (int elementColumnPosition = 0; elementColumnPosition < this.configuration.CodeWidthInColumns; elementColumnPosition += this.configuration.ElementWidth)
             {
-                string element = "";
+                string element = string.Empty;
                 for (int line = 0; line < this.configuration.CodeHeightInLines; line += 1)
                 {
                     for (int column = elementColumnPosition; column < elementColumnPosition + this.configuration.ElementWidth; column += 1)
@@ -39,7 +41,16 @@ namespace OCR_4AL2_GR1.Application
 
         public override string ToString()
         {
-            return $"Decrypted entry: {this.decryptedEntry} - Checksum: {(this.checksum.IsValid ? "valid" : "invalid")}";
+            //return this.decryptedEntry + (this.decryptedEntry.Contains(UNREADABLE_ELEMENT) ? UNREADABLE_ELEMENT_KEY : this.checksum.IsValid ? string.Empty : INVALID_CHECKSUM_KEY);
+
+            string toString = this.decryptedEntry;
+
+            if (this.decryptedEntry.Contains(UNREADABLE_ELEMENT))
+            {
+                return toString + UNREADABLE_ELEMENT_KEY;
+            }
+
+            return toString + (this.checksum.IsValid ? string.Empty : INVALID_CHECKSUM_KEY);
         }
     }
 }
