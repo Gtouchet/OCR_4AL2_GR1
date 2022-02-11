@@ -3,17 +3,15 @@ namespace OCR_4AL2_GR1
 {
     public class Entry
     {
-        private readonly string DecryptedCode;
-        private readonly Checksum Checksum;
-        private readonly string decryptedCode;
         private readonly IOcrConfiguration configuration;
+        private readonly string decryptedCode;
+        private readonly Checksum checksum;
 
         public Entry(IOcrConfiguration configuration, string[] code)
         {
-            this.DecryptedCode = this.Decrypt(code);
-            this.Checksum = new Checksum(this.DecryptedCode);
             this.configuration = configuration;
-            this.decryptedCode = this.Decrypt(code);            
+            this.decryptedCode = this.Decrypt(code);
+            this.checksum = new Checksum(this.decryptedCode);
         }
 
         private string Decrypt(string[] code)
@@ -30,10 +28,7 @@ namespace OCR_4AL2_GR1
                         decryptedElement += code[line][column];
                     }
                 }
-                if (configuration.Codex.TryGetValue(decryptedElement, out string value))
-                    decryptedCode += value;
-                else
-                    decryptedCode += "?";
+                decryptedCode += configuration.Codex.TryGetValue(decryptedElement, out string value) ? value : "?";
             }
 
             return decryptedCode;
@@ -41,7 +36,7 @@ namespace OCR_4AL2_GR1
 
         public override string ToString()
         {
-            return $"Code: {this.DecryptedCode} - Checksum: {(this.Checksum.IsValid ? "valid" : "invalid")}";
+            return $"Code: {this.decryptedCode} - Checksum: {(this.checksum.IsValid ? "valid" : "invalid")}";
         }
     }
 }
