@@ -3,23 +3,25 @@ namespace OCR_4AL2_GR1
 {
     public class Entry
     {
-        private readonly string DecryptedCode;
+        private readonly string decryptedCode;
+        private readonly OcrConfiguration configuration;
 
-        public Entry(string[] code)
+        public Entry(OcrConfiguration configuration, string[] code)
         {
-            this.DecryptedCode = this.Decrypt(code);
+            this.configuration = configuration;
+            this.decryptedCode = this.Decrypt(code);            
         }
 
         private string Decrypt(string[] code)
         {
             string decryptedCode = "";
 
-            for (int i = 0; i < OcrCodex.CODE_COLUMN_COUNT; i += OcrCodex.COLUMN_PER_NUMBER)
+            for (int i = 0; i < configuration.ColumnCount; i += configuration.ColumnPerNumber)
             {
                 string decryptedNumber = "";
-                for (int line = 0; line < OcrCodex.CODE_LINE_COUNT; line += 1)
+                for (int line = 0; line < configuration.LineCount; line += 1)
                 {
-                    for (int column = i; column < i + OcrCodex.COLUMN_PER_NUMBER; column += 1)
+                    for (int column = i; column < i + configuration.ColumnPerNumber; column += 1)
                     {
                         decryptedNumber += code[line][column];
                     }
@@ -32,7 +34,7 @@ namespace OCR_4AL2_GR1
 
         public override string ToString()
         {
-            return this.DecryptedCode;
+            return this.decryptedCode;
         }
     }
 }

@@ -1,9 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OCR_4AL2_GR1
 {
@@ -11,10 +6,9 @@ namespace OCR_4AL2_GR1
     {
         public static IConfiguration GetConfiguration()
         {
-            var builder = new ConfigurationBuilder()
+            IConfigurationBuilder builder = new ConfigurationBuilder()
                .AddJsonFile($"appsettings.json", true, true);
-            IConfiguration config = builder.Build();
-            return config;
+            return builder.Build();
         }
     }
 }

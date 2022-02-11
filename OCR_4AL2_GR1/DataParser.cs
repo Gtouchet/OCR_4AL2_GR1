@@ -31,7 +31,7 @@ namespace OCR_4AL2_GR1
                 lines[2] = this.Data[i + 2];
                 lines[3] = this.Data[i + 3];
 
-                yield return new Entry(lines);
+                yield return new Entry(this.configuration, lines);
             }
         }
     }
