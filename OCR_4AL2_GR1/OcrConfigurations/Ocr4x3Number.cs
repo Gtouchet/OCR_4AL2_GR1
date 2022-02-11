@@ -1,67 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace OCR_4AL2_GR1
+namespace OCR_4AL2_GR1.OcrConfigurations
 {
-    public class OcrConfiguration : IOcrConfiguration
+    public class Ocr4x3Number : IOcrConfiguration
     {
-        public int CodeHeightInLines => 4 ;
-        public int CodeWidthInColumns => 27;
-        public int CodeSize => 9;
+        public int CodeHeightInLines { get => 4; }
+        public int CodeWidthInColumns { get => 27; }
+        public int CodeSize { get => 9; }
 
-        private static readonly string ZERO =
+        private readonly string ZERO =
             " _ " +
             "| |" +
             "|_|" +
             "   ";
-        private static readonly string ONE =
+        private readonly string ONE =
             "   " +
             "  |" +
             "  |" +
             "   ";
-        private static readonly string TWO =
+        private readonly string TWO =
             " _ " +
             " _|" +
             "|_ " +
             "   ";
-        private static readonly string THREE =
+        private readonly string THREE =
             " _ " +
             " _|" +
             " _|" +
             "   ";
-        private static readonly string FOUR =
+        private readonly string FOUR =
             "   " +
             "|_|" +
             "  |" +
             "   ";
-        private static readonly string FIVE =
+        private readonly string FIVE =
             " _ " +
             "|_ " +
             " _|" +
             "   ";
-        private static readonly string SIX =
+        private readonly string SIX =
             " _ " +
             "|_ " +
             "|_|" +
             "   ";
-        private static readonly string SEVEN =
+        private readonly string SEVEN =
             " _ " +
             "  |" +
             "  |" +
             "   ";
-        private static readonly string HEIGHT =
+        private readonly string HEIGHT =
             " _ " +
             "|_|" +
             "|_|" +
             "   ";
-        private static readonly string NINE =
+        private readonly string NINE =
             " _ " +
             "|_|" +
             " _|" +
             "   ";
+
         public IDictionary<string, string> Codex => new Dictionary<string, string>
         {
             { ZERO, "0" },

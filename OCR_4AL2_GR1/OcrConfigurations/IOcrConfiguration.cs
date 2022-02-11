@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace OCR_4AL2_GR1
+namespace OCR_4AL2_GR1.OcrConfigurations
 {
     public interface IOcrConfiguration
     {
         int CodeHeightInLines { get; }
         int CodeWidthInColumns { get; }
         int CodeSize { get; }
-        int SingleEntryWidth => CodeWidthInColumns / CodeSize;
+        int ElementWidth { get => CodeWidthInColumns / CodeSize; }
+
         IDictionary<string, string> Codex { get; }
     }
 }
