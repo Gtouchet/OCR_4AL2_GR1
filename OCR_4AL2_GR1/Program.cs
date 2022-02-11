@@ -5,7 +5,6 @@ using OCR_4AL2_GR1.OcrConfigurations;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace OCR_4AL2_GR1
 {
