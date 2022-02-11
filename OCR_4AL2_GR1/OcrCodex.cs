@@ -11,7 +11,7 @@ namespace OCR_4AL2_GR1
         public static readonly int NUMBER_COUNT_IN_CODE = 9;
         public static readonly int COLUMN_PER_NUMBER = CODE_COLUMN_COUNT / NUMBER_COUNT_IN_CODE;
 
-        private static readonly string ZERO =
+        public static readonly string ZERO =
             " _ " +
             "| |" +
             "|_|" +

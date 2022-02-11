@@ -4,9 +4,9 @@ namespace OCR_4AL2_GR1
     public class Entry
     {
         private readonly string decryptedCode;
-        private readonly OcrConfiguration configuration;
+        private readonly IOcrConfiguration configuration;
 
-        public Entry(OcrConfiguration configuration, string[] code)
+        public Entry(IOcrConfiguration configuration, string[] code)
         {
             this.configuration = configuration;
             this.decryptedCode = this.Decrypt(code);            
@@ -16,17 +16,20 @@ namespace OCR_4AL2_GR1
         {
             string decryptedCode = "";
 
-            for (int i = 0; i < configuration.ColumnCount; i += configuration.ColumnPerNumber)
+            for (int i = 0; i < configuration.CodeWidthInColumns; i += configuration.SingleEntryWidth)
             {
-                string decryptedNumber = "";
-                for (int line = 0; line < configuration.LineCount; line += 1)
+                string decryptedElement = "";
+                for (int line = 0; line < configuration.CodeHeightInLines; line += 1)
                 {
-                    for (int column = i; column < i + configuration.ColumnPerNumber; column += 1)
+                    for (int column = i; column < i + configuration.SingleEntryWidth; column += 1)
                     {
-                        decryptedNumber += code[line][column];
+                        decryptedElement += code[line][column];
                     }
                 }
-                decryptedCode += OcrCodex.CODEX.ContainsKey(decryptedNumber) ? OcrCodex.CODEX[decryptedNumber] : "?";
+                if (configuration.Codex.TryGetValue(decryptedElement, out string value))
+                    decryptedCode += value;
+                else
+                    decryptedCode += "?";
             }
 
             return decryptedCode;

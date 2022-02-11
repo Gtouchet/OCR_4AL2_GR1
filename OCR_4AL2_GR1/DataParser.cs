@@ -5,9 +5,9 @@ namespace OCR_4AL2_GR1
     public class DataParser
     {
         private readonly string[] Data;
-        private readonly OcrConfiguration configuration;
+        private readonly IOcrConfiguration configuration;
 
-        public DataParser(OcrConfiguration configuration, string[] data)
+        public DataParser(IOcrConfiguration configuration, string[] data)
         {
             this.configuration = configuration;
             this.Data = data;
@@ -18,9 +18,9 @@ namespace OCR_4AL2_GR1
         {
             string[] lines = new string[4];
 
-            for (int i = 0; i < this.Data.Length; i += configuration.LineCount)
+            for (int i = 0; i < this.Data.Length; i += configuration.CodeHeightInLines)
             {
-                if (this.Data.Length - i < configuration.LineCount)
+                if (this.Data.Length - i < configuration.CodeHeightInLines)
                 {
                     // TODO: exception non bloquante
                     yield break;

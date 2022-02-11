@@ -9,14 +9,11 @@ namespace OCR_4AL2_GR1
     {
         static void Main(string[] args)
         {
-            OcrConfiguration ocrConfig = JsonAccessor
-                .GetConfiguration()
-                .GetSection("OcrConfiguration")
-                .Get<OcrConfiguration>();
+            //TODO horrible
+            string filename = "/OcrCodes.txt";
+            string filePath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent + filename;
 
-            string filePath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent + ocrConfig.FileName;
-
-            new DataParser(ocrConfig, File.ReadAllLines(filePath))
+            new DataParser(new OcrConfiguration(), File.ReadAllLines(filePath))
                 .Parse()
                 .ToList()
                 .ForEach(Console.WriteLine);
