@@ -1,13 +1,13 @@
 ﻿
-namespace OCR_4AL2_GR1.Application
+namespace OCR_4AL2_GR1.Application.Models
 {
     public class Checksum
     {
         public readonly bool IsValid;
 
-        public Checksum(char unreadableElement, string code)
+        public Checksum(string code)
         {
-            this.IsValid = code.Contains(unreadableElement) ? false : this.Validate(code);
+            IsValid = code.Contains("?") ? false : Validate(code);
         }
 
         private bool Validate(string code)
