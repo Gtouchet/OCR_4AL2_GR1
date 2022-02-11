@@ -1,19 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace OCR_4AL2_GR1
 {
-    public static class OcrCodex
+    public class OcrConfiguration : IOcrConfiguration
     {
-        public static readonly string CODES_FILENAME = "/OcrCodes.txt";
+        public int CodeHeightInLines => 4 ;
+        public int CodeWidthInColumns => 27;
+        public int CodeSize => 9;
 
-        public static readonly string UNKNOWN_NUMBER_KEY = "?";
-
-        public static readonly int CODE_LINE_COUNT = 4;
-        public static readonly int CODE_COLUMN_COUNT = 27;
-        public static readonly int NUMBER_COUNT_IN_CODE = 9;
-        public static readonly int COLUMN_PER_NUMBER = CODE_COLUMN_COUNT / NUMBER_COUNT_IN_CODE;
-
-        public static readonly string ZERO =
+        private static readonly string ZERO =
             " _ " +
             "| |" +
             "|_|" +
@@ -21,17 +20,17 @@ namespace OCR_4AL2_GR1
         private static readonly string ONE =
             "   " +
             "  |" +
-            "  |" + 
+            "  |" +
             "   ";
         private static readonly string TWO =
             " _ " +
             " _|" +
-            "|_ " + 
+            "|_ " +
             "   ";
         private static readonly string THREE =
             " _ " +
             " _|" +
-            " _|" + 
+            " _|" +
             "   ";
         private static readonly string FOUR =
             "   " +
@@ -46,36 +45,35 @@ namespace OCR_4AL2_GR1
         private static readonly string SIX =
             " _ " +
             "|_ " +
-            "|_|" + 
+            "|_|" +
             "   ";
         private static readonly string SEVEN =
             " _ " +
             "  |" +
-            "  |" + 
+            "  |" +
             "   ";
         private static readonly string HEIGHT =
             " _ " +
             "|_|" +
-            "|_|" + 
+            "|_|" +
             "   ";
         private static readonly string NINE =
             " _ " +
             "|_|" +
-            " _|" + 
+            " _|" +
             "   ";
-
-        public static readonly Dictionary<string, int> CODEX = new Dictionary<string, int>
+        public IDictionary<string, string> Codex => new Dictionary<string, string>
         {
-            { ZERO, 0 },
-            { ONE, 1 },
-            { TWO, 2 },
-            { THREE, 3 },
-            { FOUR, 4 },
-            { FIVE, 5 },
-            { SIX, 6 },
-            { SEVEN, 7 },
-            { HEIGHT, 8 },
-            { NINE, 9 },
+            { ZERO, "0" },
+            { ONE, "1" },
+            { TWO, "2" },
+            { THREE, "3" },
+            { FOUR, "4" },
+            { FIVE, "5" },
+            { SIX, "6" },
+            { SEVEN, "7" },
+            { HEIGHT, "8" },
+            { NINE, "9" }
         };
     }
 }
