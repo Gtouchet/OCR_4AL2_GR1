@@ -1,5 +1,6 @@
-﻿using OCR_4AL2_GR1.Application;
-using OCR_4AL2_GR1.Application.Exceptions;
+﻿using OCR_4AL2_GR1.Application.Exceptions;
+using OCR_4AL2_GR1.Application.Models;
+using OCR_4AL2_GR1.Application.Parser;
 using OCR_4AL2_GR1.OcrConfigurations;
 using System;
 using System.Collections.Generic;
@@ -12,17 +13,26 @@ namespace OCR_4AL2_GR1
     {
         static void Main(string[] args)
         {
-            string filePath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent + "/OcrSample.ocr";
-            string fileName = Path.GetFileNameWithoutExtension(filePath);
+            // Input from CLI
+            string inputFilePath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent + "/OcrSample.ocr";
 
-            try
-            {
-                List<Entry> entries = new DataParser(new Ocr4x3Number(), File.ReadAllLines(filePath)).Parse().ToList();
+            string inputFileName = Path.GetFileNameWithoutExtension(inputFilePath);
 
-                FileWriter.Write(fileName, entries);
-            }
-            catch (UnreadableEntryException e)
-            {
+            try {
+                IEnumerable<Entry> entriesList = DataParser
+                    .Of(new Ocr4x3Number())
+                    .Parse(File.ReadAllLines(inputFilePath))
+                    .ToList();
+
+                IDictionary<string, List<Entry>> entriesDict = DataParser
+                    .Of(new Ocr4x3Number())
+                    .Parse(File.ReadAllLines(inputFilePath))
+                    .ToDictionary();
+
+                FileWriter.WriteEntriesInSingleFile(inputFileName, entriesList);
+                FileWriter.WriteEntriesSortedInFiles(inputFileName, entriesDict);
+
+            } catch (UnreadableEntryException e) {
                 Console.WriteLine(e.Message);
             }
         }
