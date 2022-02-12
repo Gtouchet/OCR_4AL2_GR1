@@ -23,27 +23,31 @@ namespace OCR_4AL2_GR1.Application.Parser
 
         public IDataParserTo Parse(string[] fileData)
         {
-            for (int entryLinePosition = 0; entryLinePosition < fileData.Length; entryLinePosition += configuration.CodeHeightInLines)
+            for (int entryLinePosition = 0; entryLinePosition < fileData.Length; entryLinePosition += this.configuration.CodeHeightInLines)
             {
-                if (fileData.Length - entryLinePosition < configuration.CodeHeightInLines)
+                if (fileData.Length - entryLinePosition < this.configuration.CodeHeightInLines)
                 {
                     throw new UnreadableEntryException(entryLinePosition + 1);
                 }
 
                 string[] entry = new string[configuration.CodeHeightInLines];
 
-                for (int line = 0; line < configuration.CodeHeightInLines; line += 1)
+                for (int line = 0; line < this.configuration.CodeHeightInLines; line += 1)
                 {
+                    if (fileData[entryLinePosition + line].Length != this.configuration.CodeWidthInColumns)
+                    {
+                        throw new UnreadableEntryException(entryLinePosition + 1 + line);
+                    }
                     entry[line] = fileData[entryLinePosition + line];
                 }
 
-                this.entriesList.Add(new Entry(configuration, entry));
+                this.entriesList.Add(new Entry(this.configuration, entry));
             }
 
             return this;
         }
 
-        public IEnumerable<Entry> ToList()
+        public List<Entry> ToList()
         {
             return this.entriesList;
         }
