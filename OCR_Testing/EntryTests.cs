@@ -29,6 +29,8 @@ namespace OCR_Testing
             this.entry = new Entry(this.configuration, cryptedEntry);
 
             this.entry.Status.Should().Be("");
+            this.entry.DecryptedEntry.Should().Be("457508000");
+            this.entry.ToString().Should().Be("457508000 ");
         }
 
         [Fact]
@@ -45,6 +47,8 @@ namespace OCR_Testing
             this.entry = new Entry(this.configuration, cryptedEntry);
 
             this.entry.Status.Should().Be("ERR");
+            this.entry.DecryptedEntry.Should().Be("664371495");
+            this.entry.ToString().Should().Be("664371495 ERR");
         }
 
         [Fact]
@@ -61,6 +65,8 @@ namespace OCR_Testing
             this.entry = new Entry(this.configuration, cryptedEntry);
 
             this.entry.Status.Should().Be("ILL");
+            this.entry.DecryptedEntry.Should().Be("12?13678?");
+            this.entry.ToString().Should().Be("12?13678? ILL");
         }
     }
 }
