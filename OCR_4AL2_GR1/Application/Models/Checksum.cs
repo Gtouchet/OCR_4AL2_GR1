@@ -7,7 +7,7 @@ namespace OCR_4AL2_GR1.Application.Models
 
         public Checksum(string code)
         {
-            IsValid = code.Contains("?") ? false : Validate(code);
+            this.IsValid = code.Contains("?") ? false : this.Validate(code);
         }
 
         private bool Validate(string code)
