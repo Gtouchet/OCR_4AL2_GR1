@@ -13,26 +13,26 @@ namespace OCR_4AL2_GR1.Application.Models
         public Entry(IOcrConfiguration configuration, string[] cryptedEntry)
         {
             this.configuration = configuration;
-            DecryptedEntry = DecryptEntry(cryptedEntry);
-            checksum = new Checksum(DecryptedEntry);
-            Status = SetStatus();
+            this.DecryptedEntry = DecryptEntry(cryptedEntry);
+            this.checksum = new Checksum(this.DecryptedEntry);
+            this.Status = SetStatus();
         }
 
         private string DecryptEntry(string[] cryptedEntry)
         {
             string decryptedEntry = string.Empty;
 
-            for (int elementColumnPosition = 0; elementColumnPosition < configuration.CodeWidthInColumns; elementColumnPosition += configuration.ElementWidth)
+            for (int elementColumnPosition = 0; elementColumnPosition < this.configuration.CodeWidthInColumns; elementColumnPosition += this.configuration.ElementWidth)
             {
                 string element = string.Empty;
-                for (int line = 0; line < configuration.CodeHeightInLines; line += 1)
+                for (int line = 0; line < this.configuration.CodeHeightInLines; line += 1)
                 {
-                    for (int column = elementColumnPosition; column < elementColumnPosition + configuration.ElementWidth; column += 1)
+                    for (int column = elementColumnPosition; column < elementColumnPosition + this.configuration.ElementWidth; column += 1)
                     {
                         element += cryptedEntry[line][column];
                     }
                 }
-                decryptedEntry += configuration.Codex.TryGetValue(element, out string value) ? value : "?";
+                decryptedEntry += this.configuration.Codex.TryGetValue(element, out string value) ? value : "?";
             }
 
             return decryptedEntry;
@@ -40,12 +40,12 @@ namespace OCR_4AL2_GR1.Application.Models
 
         private string SetStatus()
         {
-            return DecryptedEntry.Contains("?") ? "ILL" : checksum.IsValid ? string.Empty : "ERR";
+            return this.DecryptedEntry.Contains("?") ? "ILL" : this.checksum.IsValid ? string.Empty : "ERR";
         }
 
         public override string ToString()
         {
-            return $"{DecryptedEntry} {Status}";
+            return $"{this.DecryptedEntry} {this.Status}";
         }
     }
 }
