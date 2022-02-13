@@ -5,23 +5,23 @@ using System.Collections.Generic;
 
 namespace OCR_4AL2_GR1.Application.Parser
 {
-    public class DataParser : IDataParser, IDataParserTo
+    public class OcrParser : IOcrParser, IOcrParserTo
     {
         private readonly IOcrConfiguration configuration;
         private List<Entry> entriesList;
 
-        private DataParser(IOcrConfiguration configuration)
+        private OcrParser(IOcrConfiguration configuration)
         {
             this.configuration = configuration;
             this.entriesList = new List<Entry>();
         }
 
-        public static IDataParser Of(IOcrConfiguration configuration)
+        public static IOcrParser Of(IOcrConfiguration configuration)
         {
-            return new DataParser(configuration);
+            return new OcrParser(configuration);
         }
 
-        public IDataParserTo Parse(string[] fileData)
+        public IOcrParserTo Parse(string[] fileData)
         {
             for (int entryLinePosition = 0; entryLinePosition < fileData.Length; entryLinePosition += this.configuration.CodeHeightInLines)
             {

@@ -18,18 +18,18 @@ namespace OCR_4AL2_GR1
             string inputFileName = Path.GetFileNameWithoutExtension(inputFilePath);
 
             try {
-                IEnumerable<Entry> entriesList = DataParser
+                IEnumerable<Entry> entriesList = OcrParser
                     .Of(new Ocr4x3Number())
                     .Parse(File.ReadAllLines(inputFilePath))
                     .ToList();
 
-                IDictionary<string, List<Entry>> entriesDict = DataParser
+                IDictionary<string, List<Entry>> entriesDict = OcrParser
                     .Of(new Ocr4x3Number())
                     .Parse(File.ReadAllLines(inputFilePath))
                     .ToDictionary();
 
-                FileWriter.WriteEntriesInSingleFile(inputFileName, entriesList);
-                FileWriter.WriteEntriesSortedInFiles(inputFileName, entriesDict);
+                FileWriter.WriteListInMergedFile(inputFileName, entriesList);
+                FileWriter.WriteDictionaryInSortedFiles(inputFileName, entriesDict);
 
             } catch (UnreadableEntryException e) {
                 Console.WriteLine(e.Message);

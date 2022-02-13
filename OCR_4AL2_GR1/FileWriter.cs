@@ -9,7 +9,7 @@ namespace OCR_4AL2_GR1
     {
         private static string DEFAULT_OUTPUT_DIRECTORY = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent + "/Output";
 
-        public static async void WriteEntriesInSingleFile(string fileName, IEnumerable<Entry> entries)
+        public static async void WriteListInMergedFile(string fileName, IEnumerable<Entry> entries)
         {
             await File.WriteAllLinesAsync(
                 Path.Combine(DEFAULT_OUTPUT_DIRECTORY, fileName + "_mixedResult.txt"),
@@ -17,7 +17,7 @@ namespace OCR_4AL2_GR1
             );
         }
 
-        public static async void WriteEntriesSortedInFiles(string fileName, IDictionary<string, List<Entry>> entries)
+        public static async void WriteDictionaryInSortedFiles(string fileName, IDictionary<string, List<Entry>> entries)
         {
             foreach (string key in entries.Keys)
             {

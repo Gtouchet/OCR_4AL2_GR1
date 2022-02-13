@@ -7,13 +7,13 @@ using Xunit;
 
 namespace OCR_Testing
 {
-    public class DataParserTests
+    public class OcrParserTests
     {
-        private readonly IDataParser dataParser;
+        private readonly IOcrParser ocrParser;
 
-        public DataParserTests()
+        public OcrParserTests()
         {
-            this.dataParser = DataParser.Of(new Ocr4x3Number());
+            this.ocrParser = OcrParser.Of(new Ocr4x3Number());
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace OCR_Testing
                 "                           ",
             };
 
-            Action action = () => this.dataParser.Parse(entries);
+            Action action = () => this.ocrParser.Parse(entries);
 
             action.Should().Throw<UnreadableEntryException>().WithMessage("Error: unreadable entry at line 2");
         }
@@ -43,7 +43,7 @@ namespace OCR_Testing
                 "                           ",
             };
 
-            Action action = () => this.dataParser.Parse(entries);
+            Action action = () => this.ocrParser.Parse(entries);
 
             action.Should().Throw<UnreadableEntryException>().WithMessage("Error: unreadable entry at line 3");
         }
@@ -61,7 +61,7 @@ namespace OCR_Testing
                 "|_||_   ||_ | ||_|| || || |",
             };
 
-            Action action = () => this.dataParser.Parse(entries);
+            Action action = () => this.ocrParser.Parse(entries);
 
             action.Should().Throw<UnreadableEntryException>().WithMessage("Error: unreadable entry at line 5");
         }
@@ -77,7 +77,7 @@ namespace OCR_Testing
                 "                           ",
             };
 
-            this.dataParser.Parse(entries).ToList().Count.Should().Be(1);
+            this.ocrParser.Parse(entries).ToList().Count.Should().Be(1);
         }
     }
 }
