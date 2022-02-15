@@ -1,4 +1,4 @@
-﻿using OCR_4AL2_GR1.OcrConfigurations;
+﻿using OCR_4AL2_GR1.Parser.OcrConfigurations;
 
 namespace OCR_4AL2_GR1.Application.Models
 {

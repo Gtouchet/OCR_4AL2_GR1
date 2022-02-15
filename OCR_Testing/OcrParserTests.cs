@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using OCR_4AL2_GR1.Application.Exceptions;
 using OCR_4AL2_GR1.Application.Parser;
-using OCR_4AL2_GR1.OcrConfigurations;
+using OCR_4AL2_GR1.Parser.OcrConfigurations;
 using System;
 using Xunit;
 

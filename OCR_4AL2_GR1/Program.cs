@@ -1,10 +1,8 @@
 ﻿using OCR_4AL2_GR1.Application.Exceptions;
 using OCR_4AL2_GR1.Application.Models;
 using OCR_4AL2_GR1.Application.Parser;
-using OCR_4AL2_GR1.OcrConfigurations;
-using System;
-using System.Collections.Generic;
-using System.IO;
+using OCR_4AL2_GR1.CliEngine;
+using OCR_4AL2_GR1.Parser.OcrConfigurations;
 
 namespace OCR_4AL2_GR1
 {
@@ -12,28 +10,7 @@ namespace OCR_4AL2_GR1
     {
         static void Main(string[] args)
         {
-            // Input from CLI
-            string inputFilePath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent + "/OcrSample.ocr";
-
-            string inputFileName = Path.GetFileNameWithoutExtension(inputFilePath);
-
-            try {
-                IEnumerable<Entry> entriesList = OcrParser
-                    .Of(new Ocr4x3Number())
-                    .Parse(File.ReadAllLines(inputFilePath))
-                    .ToList();
-
-                IDictionary<string, List<Entry>> entriesDict = OcrParser
-                    .Of(new Ocr4x3Number())
-                    .Parse(File.ReadAllLines(inputFilePath))
-                    .ToDictionary();
-
-                FileWriter.WriteListInMergedFile(inputFileName, entriesList);
-                FileWriter.WriteDictionaryInSortedFiles(inputFileName, entriesDict);
-
-            } catch (UnreadableEntryException e) {
-                Console.WriteLine(e.Message);
-            }
+            new ConsoleEngine(OcrParser.Of(new Ocr4x3Number())).Run();
         }
     }
 }

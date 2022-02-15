@@ -1,6 +1,6 @@
 ﻿using OCR_4AL2_GR1.Application.Exceptions;
 using OCR_4AL2_GR1.Application.Models;
-using OCR_4AL2_GR1.OcrConfigurations;
+using OCR_4AL2_GR1.Parser.OcrConfigurations;
 using System.Collections.Generic;
 
 namespace OCR_4AL2_GR1.Application.Parser
@@ -13,7 +13,6 @@ namespace OCR_4AL2_GR1.Application.Parser
         private OcrParser(IOcrConfiguration configuration)
         {
             this.configuration = configuration;
-            this.entriesList = new List<Entry>();
         }
 
         public static IOcrParser Of(IOcrConfiguration configuration)
@@ -23,6 +22,8 @@ namespace OCR_4AL2_GR1.Application.Parser
 
         public IOcrParserTo Parse(string[] fileData)
         {
+            this.entriesList = new List<Entry>();
+
             for (int entryLinePosition = 0; entryLinePosition < fileData.Length; entryLinePosition += this.configuration.CodeHeightInLines)
             {
                 if (fileData.Length - entryLinePosition < this.configuration.CodeHeightInLines)

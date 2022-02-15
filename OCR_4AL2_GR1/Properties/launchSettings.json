@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OCR_4AL2_GR1": {
+      "commandName": "Project",
+      "commandLineArgs": "../OcrSample.ocr"
+    }
+  }
+}

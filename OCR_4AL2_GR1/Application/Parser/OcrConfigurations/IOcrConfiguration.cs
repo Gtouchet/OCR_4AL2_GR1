@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OCR_4AL2_GR1.OcrConfigurations
+namespace OCR_4AL2_GR1.Parser.OcrConfigurations
 {
     public interface IOcrConfiguration
     {
