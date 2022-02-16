@@ -12,7 +12,7 @@ namespace OCR_4AL2_GR1
         public static async void WriteListInMergedFile(string fileName, IEnumerable<Entry> entries)
         {
             await File.WriteAllLinesAsync(
-                Path.Combine(DEFAULT_OUTPUT_DIRECTORY, fileName + "_mixedResult.txt"),
+                Path.Combine(DEFAULT_OUTPUT_DIRECTORY, fileName + "_mergedResult.txt"),
                 entries.Select(entry => entry.ToString())
             );
         }

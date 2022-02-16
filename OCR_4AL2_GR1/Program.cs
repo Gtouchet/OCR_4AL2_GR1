@@ -1,6 +1,4 @@
-﻿using OCR_4AL2_GR1.Application.Exceptions;
-using OCR_4AL2_GR1.Application.Models;
-using OCR_4AL2_GR1.Application.Parser;
+﻿using OCR_4AL2_GR1.Application.Parser;
 using OCR_4AL2_GR1.CliEngine;
 using OCR_4AL2_GR1.Parser.OcrConfigurations;
 

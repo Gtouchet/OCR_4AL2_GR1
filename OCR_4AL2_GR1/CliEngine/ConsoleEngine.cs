@@ -3,6 +3,8 @@ using OCR_4AL2_GR1.Application.Parser;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace OCR_4AL2_GR1.CliEngine
 {
@@ -18,23 +20,25 @@ namespace OCR_4AL2_GR1.CliEngine
         public void Run()
         {
             Console.WriteLine("Console engine started");
-            Console.WriteLine("Usage: OcrAbsoluteFilePath merged|sorted");
+            Console.WriteLine("Usage: OcrAbsoluteFolderOrFilePath merged|sorted");
 
             while (true)
             {
                 Console.Write(" > ");
-                string[] args = Console.ReadLine().Split(" ");
+                string[] args = Regex.Replace(Console.ReadLine().Trim(), @"\s+", " ").Split(" ");
+
+                string[] ocrContent;
+                try {
+                    ocrContent = this.IsFolder(args[0]) ? this.GetOcrFilesContent(args[0]) : File.ReadAllLines(args[0]);
+                } catch (FileNotFoundException e) {
+                    Console.WriteLine(e.Message);
+                    continue;
+                }
 
                 if (args.Length > 1 && args[1].ToUpper().Equals("SORTED"))
                 {
-                    try
-                    {
-                        IDictionary<string, List<Entry>> entries = this.ocrParser.Parse(File.ReadAllLines(args[0])).ToDictionary();
-                        FileWriter.WriteDictionaryInSortedFiles(Path.GetFileNameWithoutExtension(args[0]), entries);
-
-                    } catch (FileNotFoundException e) {
-                        Console.WriteLine(e.Message);
-                    }
+                    IDictionary<string, List<Entry>> entries = this.ocrParser.Parse(ocrContent).ToDictionary();
+                    FileWriter.WriteDictionaryInSortedFiles(Path.GetFileNameWithoutExtension(args[0]), entries);
                 }
                 else
                 {
@@ -42,17 +46,31 @@ namespace OCR_4AL2_GR1.CliEngine
                     {
                         Console.WriteLine($"Warning: '{args[1].ToUpper()}' is not a valid keyword, output will not be sorted");
                     }
-
-                    try
-                    {
-                        IList<Entry> entries = this.ocrParser.Parse(File.ReadAllLines(args[0])).ToList();
-                        FileWriter.WriteListInMergedFile(Path.GetFileNameWithoutExtension(args[0]), entries);
-
-                    } catch (FileNotFoundException e) {
-                        Console.WriteLine(e.Message);
-                    }
+                    
+                    IList<Entry> entries = this.ocrParser.Parse(ocrContent).ToList();
+                    FileWriter.WriteListInMergedFile(Path.GetFileNameWithoutExtension(Path.GetFileNameWithoutExtension(args[0])), entries);
                 }
             }
+        }
+
+        private bool IsFolder(string path)
+        {
+            return (File.GetAttributes(path) & FileAttributes.Directory) == FileAttributes.Directory;
+        }
+
+        private string[] GetOcrFilesContent(string folderPath)
+        {
+            List<string> filesContent = new List<string>();
+
+            Directory.GetFiles(folderPath).ToList().ForEach(file =>
+            {
+                if (Path.GetExtension(file).Equals(".ocr"))
+                {
+                    filesContent.AddRange(File.ReadAllLines(file).ToList());
+                }
+            });
+
+            return filesContent.ToArray();
         }
     }
 }
