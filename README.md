@@ -6,10 +6,11 @@
 ## Features
 
 - Reads one or multiple files and parse their OCR content as a number
-- Verifies if every character is readable in files content
-  Indicates in the result if the OCR is unreadable in the result file(s)
-- Applies a checksum on this number
-  Indicates if the checksum is valid or not in the result file(s)
+- Verifies if every character is readable in files content, 
+  indicates in the result if the OCR is unreadable in the result file(s)
+- Applies a checksum on this number, 
+  indicates if the checksum is valid or not in the result file(s)
+- Writes the result file(s) in solution's 'Output' folder
 - A CLI for the user to specify the path and way to create the result file(s) (merged or sorted)
 
 ## Usage
