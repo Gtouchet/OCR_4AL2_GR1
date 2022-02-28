@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using OCR_4AL2_GR1.Application.Models;
-using OCR_4AL2_GR1.OcrConfigurations;
+using OCR_4AL2_GR1.Parser.OcrConfigurations;
 using Xunit;
 
 namespace OCR_Testing
