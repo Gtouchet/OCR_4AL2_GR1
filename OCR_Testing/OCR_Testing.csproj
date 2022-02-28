@@ -24,4 +24,8 @@
     <ProjectReference Include="..\OCR_4AL2_GR1\OCR_4AL2_GR1.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Output\" />
+  </ItemGroup>
+
 </Project>
