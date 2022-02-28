@@ -36,9 +36,12 @@ namespace OCR_4AL2_GR1.CliEngine
 
                 } catch (UnreadableEntryException e) {
                     Console.WriteLine(e.Message);
+
                     return ConsoleReturnCodes.UnreadableFileContent;
                 }
                 FileWriter.WriteDictionaryInSortedFiles(Path.GetFileNameWithoutExtension(args[0]), entries);
+
+                return ConsoleReturnCodes.SuccessSorted;
             }
             else
             {
@@ -53,12 +56,13 @@ namespace OCR_4AL2_GR1.CliEngine
 
                 } catch (UnreadableEntryException e) {
                     Console.WriteLine(e.Message);
+
                     return ConsoleReturnCodes.UnreadableFileContent;
                 }
                 FileWriter.WriteListInMergedFile(Path.GetFileNameWithoutExtension(Path.GetFileNameWithoutExtension(args[0])), entries);
-            }
 
-            return ConsoleReturnCodes.Success;
+                return ConsoleReturnCodes.SuccessMerged;
+            }
         }
 
         private bool IsFolder(string path)

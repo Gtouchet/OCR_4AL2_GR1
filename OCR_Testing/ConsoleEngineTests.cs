@@ -10,6 +10,7 @@ namespace OCR_Testing
     public class ConsoleEngineTests
     {
         private readonly ConsoleCommandHandler consoleCommandHandler;
+
         private readonly string ocrSamplePath;
         private readonly string ocrFolderSamplesPath;
         private readonly string corruptedOcrSamplePath;
@@ -33,27 +34,43 @@ namespace OCR_Testing
         }
 
         [Fact]
-        public void Handle_SingleFile_Success()
-        {
-            ConsoleReturnCodes result = this.consoleCommandHandler.Handle(new string[] { this.ocrSamplePath, "MerGeD" });
-
-            result.Should().Be(ConsoleReturnCodes.Success);
-        }
-
-        [Fact]
-        public void Handle_MultipleFile_Success()
-        {
-            ConsoleReturnCodes result = this.consoleCommandHandler.Handle(new string[] { this.ocrFolderSamplesPath, "Hello" });
-
-            result.Should().Be(ConsoleReturnCodes.Success);
-        }
-
-        [Fact]
         public void Handle_SingleCorruptedFile_UnreadableFileContent()
         {
             ConsoleReturnCodes result = this.consoleCommandHandler.Handle(new string[] { this.corruptedOcrSamplePath, string.Empty });
 
             result.Should().Be(ConsoleReturnCodes.UnreadableFileContent);
+        }
+
+        [Fact]
+        public void Handle_SingleFile_Sorted_Success()
+        {
+            ConsoleReturnCodes result = this.consoleCommandHandler.Handle(new string[] { this.ocrSamplePath, "sORteD" });
+
+            result.Should().Be(ConsoleReturnCodes.SuccessSorted);
+        }
+
+        [Fact]
+        public void Handle_SingleFile_Merged_Success()
+        {
+            ConsoleReturnCodes result = this.consoleCommandHandler.Handle(new string[] { this.ocrSamplePath, "Hello" });
+
+            result.Should().Be(ConsoleReturnCodes.SuccessMerged);
+        }
+
+        [Fact]
+        public void Handle_MultipleFile_Sorted_Success()
+        {
+            ConsoleReturnCodes result = this.consoleCommandHandler.Handle(new string[] { this.ocrFolderSamplesPath, "sorted" });
+
+            result.Should().Be(ConsoleReturnCodes.SuccessSorted);
+        }
+
+        [Fact]
+        public void Handle_MultipleFile_Merged_Success()
+        {
+            ConsoleReturnCodes result = this.consoleCommandHandler.Handle(new string[] { this.ocrFolderSamplesPath, "merged" });
+
+            result.Should().Be(ConsoleReturnCodes.SuccessMerged);
         }
     }
 }
