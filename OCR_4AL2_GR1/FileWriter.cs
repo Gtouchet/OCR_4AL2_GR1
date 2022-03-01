@@ -11,14 +11,24 @@ namespace OCR_4AL2_GR1
 
         public static async void WriteListInMergedFile(string fileName, IEnumerable<Entry> entries)
         {
+            if (!Directory.Exists(DEFAULT_OUTPUT_DIRECTORY))
+            {
+                CreateOutputDirectory();
+            }
+
             await File.WriteAllLinesAsync(
-                Path.Combine(DEFAULT_OUTPUT_DIRECTORY, fileName + "_mergedResult.txt"),
-                entries.Select(entry => entry.ToString())
+                    Path.Combine(DEFAULT_OUTPUT_DIRECTORY, fileName + "_mergedResult.txt"),
+                    entries.Select(entry => entry.ToString())
             );
         }
 
         public static async void WriteDictionaryInSortedFiles(string fileName, IDictionary<string, List<Entry>> entries)
         {
+            if (!Directory.Exists(DEFAULT_OUTPUT_DIRECTORY))
+            {
+                CreateOutputDirectory();
+            }
+
             foreach (string key in entries.Keys)
             {
                 string keyword = key.Equals("ERR") ? "errored" : key.Equals("ILL") ? "unknown" : "authorized";
@@ -27,6 +37,11 @@ namespace OCR_4AL2_GR1
                     entries[key].Select(entry => entry.ToString())
                 );
             }
+        }
+
+        private static void CreateOutputDirectory()
+        {
+            Directory.CreateDirectory(DEFAULT_OUTPUT_DIRECTORY);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace OCR_4AL2_GR1.CliEngine
             {
                 Console.Write(" > ");
 
-                string[] args = Regex.Replace(Console.ReadLine().Trim(), @"\s+", " ").Split(" ");
+                string[] args = Regex.Replace(Console.ReadLine().Trim(), @"\s+", " ").Split(",");
 
                 this.consoleCommandHandler.Handle(args);
             }

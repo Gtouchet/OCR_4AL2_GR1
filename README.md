@@ -16,7 +16,7 @@
 ## Usage
 
 The CLI allows the user to specify a file's or a folder's path of the file(s) he wants to process.  
-The first given argument is the file/folder path, the second is the way the user wants to get the processing's result.  
+The first given argument is the file/folder path, the second (separated by a comma) is the way the user wants to get the processing's result.  
 The program will process all .ocr files and ignore all other files if the first argument is a folder path,  
 or the file regardless of its extension if this is a file path.  
 The two possible entries for the second argument are : 'merged' or 'sorted', merged by default if unrecognized argument.  
@@ -28,9 +28,9 @@ The two possible entries for the second argument are : 'merged' or 'sorted', mer
 
 
 **Usage examples :**  
-```/MyDocuments/MyOcrFilesFolder sorted```  
+```/MyDocuments/MyOcrFilesFolder, sorted```  
 -> All .ocr files in MyOcrFilesFolder will be processed and dispatched in separated files depending on their status.  
-```/MyDocuments/MyOcrFilesFolder/ThisSpecificFile.ocr merged```  
+```/MyDocuments/MyOcrFilesFolder/ThisSpecificFile.ocr, merged```  
 -> ThisSpecificFile.ocr will be processed and all OCR contained in this file will be displayed in one result file.  
 
 ## Installation

@@ -28,7 +28,7 @@ namespace OCR_4AL2_GR1.CliEngine
                 return ConsoleReturnCodes.FileNotFound;
             }
 
-            if (args.Length > 1 && args[1].ToUpper().Equals("SORTED"))
+            if (args.Length > 1 && args[1].Trim().ToUpper().Equals("SORTED"))
             {
                 IDictionary<string, List<Entry>> entries;
                 try {
@@ -45,7 +45,7 @@ namespace OCR_4AL2_GR1.CliEngine
             }
             else
             {
-                if (args.Length > 1 && !args[1].ToUpper().Equals("MERGED"))
+                if (args.Length > 1 && !args[1].Trim().ToUpper().Equals("MERGED"))
                 {
                     Console.WriteLine($"Warning: '{args[1].ToUpper()}' is not a valid keyword, output will be merged");
                 }
