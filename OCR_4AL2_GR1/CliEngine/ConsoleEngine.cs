@@ -17,17 +17,24 @@ namespace OCR_4AL2_GR1.CliEngine
         {
             Console.WriteLine(
                 "Console engine started\n" +
-                "Usage: OcrAbsoluteFolderOrFilePath merged|sorted"
+                "Usage: OcrAbsoluteFolderOrFilePath, merged|sorted"
             );
 
             while (true)
             {
                 Console.Write(" > ");
 
-                string[] args = Regex.Replace(Console.ReadLine().Trim(), @"\s+", " ").Split(",");
+                string input = Console.ReadLine();
+                input = this.FormatSpacesIn(input);
+                string[] args = input.Split(",");
 
                 this.consoleCommandHandler.Handle(args);
             }
+        }
+
+        private string FormatSpacesIn(string source)
+        {
+            return Regex.Replace(source, @"\s+", " ").Trim();
         }
     }
 }

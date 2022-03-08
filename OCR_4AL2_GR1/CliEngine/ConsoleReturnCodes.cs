@@ -6,6 +6,7 @@ namespace OCR_4AL2_GR1.CliEngine
         SuccessMerged,
         SuccessSorted,
 
+        WrongNumberOfArguments,
         FileNotFound,
         UnreadableFileContent,
     }

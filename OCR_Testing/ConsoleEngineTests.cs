@@ -26,6 +26,14 @@ namespace OCR_Testing
         }
 
         [Fact]
+        public void Handle_MalformedCommand()
+        {
+            ConsoleReturnCodes result = this.consoleCommandHandler.Handle(new string[] { "onlyParameter" });
+
+            result.Should().Be(ConsoleReturnCodes.WrongNumberOfArguments);
+        }
+
+        [Fact]
         public void Handle_FileNotFound()
         {
             ConsoleReturnCodes result = this.consoleCommandHandler.Handle(new string[] { "nonExistantPath", "SorTed" });

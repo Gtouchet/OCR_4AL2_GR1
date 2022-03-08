@@ -13,6 +13,7 @@ namespace OCR_4AL2_GR1.Application.Parser
         private OcrParser(IOcrConfiguration configuration)
         {
             this.configuration = configuration;
+            this.entriesList = new List<Entry>();
         }
 
         public static IOcrParser Of(IOcrConfiguration configuration)
@@ -22,22 +23,20 @@ namespace OCR_4AL2_GR1.Application.Parser
 
         public IOcrParserTo Parse(string[] fileData)
         {
-            this.entriesList = new List<Entry>();
-
             for (int entryLinePosition = 0; entryLinePosition < fileData.Length; entryLinePosition += this.configuration.CodeHeightInLines)
             {
-                if (fileData.Length - entryLinePosition < this.configuration.CodeHeightInLines)
+                if (!this.IsNextEntryValid(fileData.Length, entryLinePosition))
                 {
-                    throw new UnreadableEntryException(entryLinePosition + 1);
+                    throw new UnreadableEntryException(entryLinePosition);
                 }
 
-                string[] entry = new string[configuration.CodeHeightInLines];
+                string[] entry = new string[this.configuration.CodeHeightInLines];
 
                 for (int line = 0; line < this.configuration.CodeHeightInLines; line += 1)
                 {
-                    if (fileData[entryLinePosition + line].Length != this.configuration.CodeWidthInColumns)
+                    if (!this.IsEntryLineValid(fileData[line]))
                     {
-                        throw new UnreadableEntryException(entryLinePosition + 1 + line);
+                        throw new UnreadableEntryException(entryLinePosition + line);
                     }
                     entry[line] = fileData[entryLinePosition + line];
                 }
@@ -65,6 +64,16 @@ namespace OCR_4AL2_GR1.Application.Parser
             this.entriesList.ForEach(entry => entries[entry.Status].Add(entry));
 
             return entries;
+        }
+
+        private bool IsNextEntryValid(int fileLinesCount, int actualLineInFile)
+        {
+            return fileLinesCount - actualLineInFile >= this.configuration.CodeHeightInLines;
+        }
+
+        private bool IsEntryLineValid(string actualLine)
+        {
+            return actualLine.Length == this.configuration.CodeWidthInColumns;
         }
     }
 }
