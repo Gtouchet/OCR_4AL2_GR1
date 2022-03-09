@@ -31,7 +31,7 @@ namespace OCR_4AL2_GR1
 
             foreach (string key in entries.Keys)
             {
-                string keyword = key.Equals("ERR") ? "errored" : key.Equals("ILL") ? "unknown" : "authorized";
+                string keyword = GetStatusKeyword(key);
                 await File.WriteAllLinesAsync(
                     Path.Combine(DEFAULT_OUTPUT_DIRECTORY, fileName + $"_{keyword}.txt"),
                     entries[key].Select(entry => entry.ToString())
@@ -42,6 +42,11 @@ namespace OCR_4AL2_GR1
         private static void CreateOutputDirectory()
         {
             Directory.CreateDirectory(DEFAULT_OUTPUT_DIRECTORY);
+        }
+
+        private static string GetStatusKeyword(string key)
+        {
+            return key.Equals("ERR") ? "errored" : key.Equals("ILL") ? "unknown" : "authorized";
         }
     }
 }
